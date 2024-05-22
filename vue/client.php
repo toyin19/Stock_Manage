@@ -21,8 +21,8 @@
             <label for="telephone"> Téléphone </label>
             <input value="<?= !empty($_GET['id']) ? $client['telephone'] : "" ?>" type="text" name="telephone" id="telephone" placeholder="veuillez entrez le numero de téléphone du client"/>
 
-            <label for="adresse">Adresse </label>
-            <input value="<?= !empty($_GET['id']) ? $client['adresse'] : "" ?>" type="text" name="adresse" id="adresse" placeholder="veuillez entrez l'adresse du client"/>
+            <label for="adresse">Email </label>
+            <input value="<?= !empty($_GET['id']) ? $client['email'] : "" ?>" type="email" name="email" id="email" placeholder="veuillez entrez l'email du client"/>
 
              <button type="submit">Valider</button>
 
@@ -45,10 +45,11 @@
          <div class="box">
             <table class="mtable">
                 <tr>
+                    <th>ID</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Téléphone</th>
-                    <th>Adresse</th>
+                    <th>Email</th>
                     <th>Actions</th>
                 </tr>
                 <?php 
@@ -58,10 +59,11 @@
                     foreach ($clients as $key => $value){
                         ?>  
                 <tr>
+                    <td><?= $value['id'] ?></td>
                     <td><?= $value['nom'] ?></td>
                     <td><?= $value['prenom'] ?></td>
                     <td><?= $value['telephone'] ?></td>
-                    <td><?= $value['adresse'] ?></td>
+                    <td><?= $value['email'] ?></td>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
                         <a href="../model/supClient.php?id=<?= $value['id']?>"><i class='bx bx-message-rounded-x'></i></a>

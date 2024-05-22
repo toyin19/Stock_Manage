@@ -50,11 +50,11 @@ if (!empty($_GET['id'])) {
         <div class="box">
             <table class="mtable">
                 <tr>
+                    <th>ID</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Téléphone</th>
                     <th>Email</th>
-                    <th>Mot de passe</th>
                     <th>Actions</th>
                 </tr>
                 <?php 
@@ -64,11 +64,11 @@ if (!empty($_GET['id'])) {
                     foreach ($utilisateur as $key => $value){
                         ?>  
                 <tr>
+                    <td><?= $value['id'] ?></td>
                     <td><?= $value['nom'] ?></td>
                     <td><?= $value['prenom'] ?></td>
                     <td><?= $value['telephone'] ?></td>
                     <td><?= $value['email'] ?></td>
-                    <td><?= $value['mot_passe'] ?></td>
                     <td>
                     <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
                     <a href="../model/supUtilisateur.php?id=<?= $value['id']?>"><i class='bx bx-message-rounded-x'></i></a>

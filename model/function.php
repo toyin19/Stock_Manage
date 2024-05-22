@@ -67,7 +67,7 @@
     function getVente($id=null) {
         if(!empty($id))
         {
-            $sql = "SELECT nom_article, nom, prenom, v.quantite, prix, date_vente, v.id, prix_unitaire, adresse, telephone 
+            $sql = "SELECT nom_article, nom, prenom, v.quantite, prix, date_vente, v.id, prix_unitaire, email, telephone 
             FROM vente AS v, client AS c, article AS a WHERE v.id_article=a.id AND v.id_client=c.id AND v.id=? AND etat=?";
 
         $req = $GLOBALS ['connexion']->prepare($sql);
@@ -164,7 +164,7 @@
     
     function getLastVente() {
 
-        $sql = "SELECT nom_article, nom, prenom, v.quantite, prix, date_vente, v.id, prix_unitaire, adresse, telephone 
+        $sql = "SELECT nom_article, nom, prenom, v.quantite, prix, date_vente, v.id, prix_unitaire, email, telephone 
             FROM vente AS v, client AS c, article AS a WHERE v.id_article=a.id AND v.id_client=c.id 
             ORDER BY date_vente DESC Limit 10";
 

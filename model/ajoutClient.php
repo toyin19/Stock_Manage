@@ -5,18 +5,18 @@ if (
     !empty($_POST['nom'])
     && !empty($_POST['prenom'])
     && !empty($_POST['telephone'])
-    && !empty($_POST['adresse'])
+    && !empty($_POST['email'])
     
     
 ){
-    $sql="INSERT INTO client(nom, prenom, telephone, adresse) VALUES(?, ?, ?, ?) ";
+    $sql="INSERT INTO client(nom, prenom, telephone, email) VALUES(?, ?, ?, ?) ";
     $req = $connexion->prepare($sql);
 
     $req->execute(array(
         $_POST['nom'],
         $_POST['prenom'],
         $_POST['telephone'],
-        $_POST['adresse'],
+        $_POST['email'],
        
     ));
     if ($req->rowCount()!=0) {

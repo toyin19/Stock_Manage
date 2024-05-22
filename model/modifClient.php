@@ -5,10 +5,10 @@ if (
     !empty($_POST['nom'])
     && !empty($_POST['prenom'])
     && !empty($_POST['telephone'])
-    && !empty($_POST['adresse'])
+    && !empty($_POST['email'])
     && !empty($_POST['id'])
 ){
-    $sql= "UPDATE client SET nom=?, prenom=?, telephone=?, adresse=? WHERE id=?";
+    $sql= "UPDATE client SET nom=?, prenom=?, telephone=?, email=? WHERE id=?";
     
     $req = $connexion->prepare($sql);
 
@@ -16,7 +16,7 @@ if (
         $_POST['nom'],
         $_POST['prenom'],
         $_POST['telephone'],
-        $_POST['adresse'],
+        $_POST['email'],
         $_POST['id']
     ));
     if ($req->rowCount()!=0) {
