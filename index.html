@@ -282,12 +282,3 @@
         };
     </script>
 </body>
-
-</html> <label for="images">Images</label>
-<?php if(!empty($_GET['id']) && !empty($article['images'])): ?>
-<img src="<?= $article['images'] ?>" alt="Image actuelle">
-<?php endif; ?>
-<input type="file" name="images" id="images" />
-
-<i class='bx bx-message-rounded-x'></i>
-<i class='bx bx-message-rounded-minus'></i>

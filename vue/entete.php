@@ -16,6 +16,7 @@ include_once '../model/function.php'
     <link rel="stylesheet" href="../public/css/style.css" />
     <!-- Boxicons CDN Link -->
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
@@ -33,32 +34,20 @@ include_once '../model/function.php'
                     <span class="links_name">Dashboard</span>
                 </a>
             </li>
-            <li>
-                <a href="vente.php" class=" <?php
-                  echo  basename($_SERVER['PHP_SELF'])=="vente.php"? "active" : "" ?>">
-                <i class='bx bx-shopping-bag'></i>
-                    <span class="links_name">Vente</span>
-                </a>
-            </li>
-            <li>
-                <a href="client.php" class=" <?php
-                  echo  basename($_SERVER['PHP_SELF'])=="client.php"? "active" : "" ?>">
-                    <i class="bx bx-user"></i>
-                    <span class="links_name">Client</span>
-                </a>
-            </li>
-            <li>
-                <a href="fournisseur.php" class=" <?php
-                  echo  basename($_SERVER['PHP_SELF'])=="fournisseur.php"? "active" : "" ?>">
-                    <i class="bx bx-user"></i>
-                    <span class="links_name">Fournisseur</span>
-                </a>
-            </li>
+
             <li>
                 <a href="article.php" class=" <?php
                   echo  basename($_SERVER['PHP_SELF'])=="article.php"? "active" : "" ?>">
                     <i class="bx bx-box"></i>
                     <span class="links_name">Article</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="categorie.php" class=" <?php
+                  echo  basename($_SERVER['PHP_SELF'])=="categorie.php"? "active" : "" ?>">
+                    <i class="bx bx-category"></i>
+                    <span class="links_name">Categorie</span>
                 </a>
             </li>
            
@@ -71,26 +60,29 @@ include_once '../model/function.php'
             </li>
 
             <li>
-                <a href="categorie.php" class=" <?php
-                  echo  basename($_SERVER['PHP_SELF'])=="categorie.php"? "active" : "" ?>">
-                    <i class="bx bx-category"></i>
-                    <span class="links_name">Categorie</span>
+                <a href="client.php" class=" <?php
+                  echo  basename($_SERVER['PHP_SELF'])=="client.php"? "active" : "" ?>">
+                    <i class="bx bx-user"></i>
+                    <span class="links_name">Client</span>
                 </a>
             </li>
 
+            <li>
+                <a href="vente.php" class=" <?php
+                  echo  basename($_SERVER['PHP_SELF'])=="vente.php"? "active" : "" ?>">
+                <i class='bx bx-shopping-bag'></i>
+                    <span class="links_name">Vente</span>
+                </a>
+            </li>
            
             <li>
-                <a href="#">
+                <a href="etatStock.php" class=" <?php
+                  echo  basename($_SERVER['PHP_SELF'])=="etatStock.php"? "active" : "" ?>">
                     <i class="bx bx-coin-stack"></i>
-                    <span class="links_name">Stock</span>
+                    <span class="links_name">Etat de stock</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-book-alt"></i>
-                    <span class="links_name">Tout les commmandes</span>
-                </a>
-            </li>
+           
             <li>
                 <a href="utilisateur.php"class=" <?php
                   echo  basename($_SERVER['PHP_SELF'])=="utilisateur.php"? "active" : "" ?>">

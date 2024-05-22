@@ -30,7 +30,7 @@ if (
        
     ));
                         //Rediriger l'utilisateur vers la page d'accueil
-                        header('Location: ../vue/utilisateur.php');
+                        header('Location: ../vue/connexion.php');
     }else {
         $error = "L'utilisateur existe déjà sur le site";
     }

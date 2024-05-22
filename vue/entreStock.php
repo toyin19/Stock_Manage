@@ -1,7 +1,6 @@
 <?php
 	include 'entete.php';
    
-    
 
     if (!empty($_GET['id'])) {
         $entreStock = getEntreStock($_GET['id']);
@@ -14,8 +13,7 @@
          <div class="box">
             <form action="<?= !empty($_GET['id']) ? "../model/modifStock.php" : "../model/ajoutStock.php" ?>" method="post">
             <input value="<?= !empty($_GET['id']) ? $entreStock['id'] : "" ?>" type="hidden" name="id" id="id"/>
-
-
+           
             <label for="id_article"> Article</label>
             <select onchange="setPrix()" name="id_article" id="id_article">
             <?php
@@ -24,7 +22,8 @@
                    if (!empty($articles) && is_array($articles)) {
                     foreach ($articles as $key => $value){
             ?>
-            <option data-prix="<?= $value['prix_unitaire']?>" value="<?= $value['id']?>"><?= $value['nom_article']." - ".$value['quantite']." disponible"  ?></option>
+
+            <option <?= !empty($_GET['id']) && $entreStock['id_article'] == $value['id'] ? "selected" : "" ?>   value="<?= $value['id']?>"><?= $value['nom_article']." - ".$value['quantite']." disponible"  ?></option>
 
              <?php    
               }
@@ -41,18 +40,14 @@
                    if (!empty($categories) && is_array($categories)) {
                     foreach ($categories as $key => $value){
             ?>
-            <option  value="<?= $value['id']?>"><?= $value['libelle_categorie'] ?></option>
+
+            <option <?= !empty($_GET['id']) && $entreStock['id_categorie'] == $value['id'] ? "selected" : "" ?> value="<?= $value['id']?>"><?= $value['libelle_categorie'] ?></option>
 
              <?php    
               }
               }
               ?>
             </select>
-
-
-            
-            
-
             <label for="quantite"> Quantite</label>
             <input  value="<?= !empty($_GET['id']) ? $entreStock['quantite'] : "" ?>" type="number" name="quantite" id="quantite" placeholder="veuillez entrez la quantité"   />
 
@@ -61,7 +56,7 @@
             <label for="id_fournisseur"> Nom</label>
             <input  value="<?= !empty($_GET['id']) ? $entreStock['nom_fournisseur'] : "" ?>" type="text" name="nom_fournisseur" id="nom_fournisseur" placeholder="veuillez entrez le nom du fournisseur "   />
             <label for="id_fournisseur"> Prenom</label>
-            <input  value="<?= !empty($_GET['id']) ? $entreStock['prenom_fournisseur'] : "" ?>" type="text" name="prenom_fournisseur" id="prenom_fournisseur" placeholder="veuillez entrez le nom du fournisseur "   />
+            <input  value="<?= !empty($_GET['id'] ) ? $entreStock['prenom_fournisseur'] : "" ?>" type="text" name="prenom_fournisseur" id="prenom_fournisseur" placeholder="veuillez entrez le nom du fournisseur "   />
             <label for="id_fournisseur"> Tel</label>
             <input  value="<?= !empty($_GET['id']) ? $entreStock['tel_fournisseur'] : "" ?>" type="text" name="tel_fournisseur" id="tel_fournisseur" placeholder="veuillez entrez le nom du fournisseur "   />
                 
@@ -99,9 +94,10 @@
                 </tr>
                 <?php 
                 
-                $entreStock = getEntreStock();
-                if (!empty($entreStock) && is_array($entreStock)){
-                    foreach ($entreStock as $key => $value){
+                $entreStocks = getEntreStock();
+                if (!empty($entreStocks) && is_array($entreStocks)){
+                    foreach ($entreStocks as $key => $value){
+                        
                         ?>  
                 <tr>
                     <td><?= $value['nom_article'] ?></td>
@@ -114,7 +110,6 @@
                     <td><?= date('d/m/y H:i:s', strtotime($value['date_entre'])) ?></td>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
-                        <a href="../model/supStock.php?id=<?= $value['id']?>"><i class='bx bx-message-rounded-x'></i></a>
                     </td>
                    
 

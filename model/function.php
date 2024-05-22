@@ -1,4 +1,4 @@
-<?php 
+<?php
 	include 'connexion.php';
     
     function getArticle($id = null, $searchDATA = array() ) {
@@ -8,7 +8,7 @@
             $sql = "SELECT nom_article, libelle_categorie, id_categorie, quantite, prix_unitaire, a.id AS id
             FROM article AS a, categorie_article AS c WHERE a.id_categorie=c.id AND a.id=?";
 
-        $req = $GLOBALS ['connexion']->prepare($sql);
+        $req = $GLOBALS['connexion']->prepare($sql);
         $req->execute(array($id));
 
         return $req->fetch();
@@ -18,6 +18,9 @@
           $search = "";
           extract($searchDATA);
          if(!empty($nom_article)) $search .= " AND a.nom_article LIKE '%$nom_article%' ";
+         if(!empty($id_categorie)) $search .= " AND a.id_categorie = $id_categorie ";
+         if(!empty($quantite)) $search .= " AND a.quantite = $quantite ";
+         if(!empty($prix_unitaire)) $search .= " AND a.prix_unitaire = $prix_unitaire ";
 
          $sql = "SELECT nom_article, libelle_categorie, id_categorie, quantite, prix_unitaire, a.id AS id
             FROM article AS a, categorie_article AS c WHERE a.id_categorie=c.id $search";
@@ -91,7 +94,7 @@
         if(!empty($id))
         {
         $sql = "SELECT * FROM fournisseur WHERE id=?";
-        $req = $GLOBALS ['connexion']->prepare($sql);
+        $req = $GLOBALS['connexion']->prepare($sql);
         $req->execute(array($id));
 
         return $req->fetch();
@@ -107,13 +110,12 @@
         }
     }
 
-
-
     function getEntreStock($id=null) {
         if(!empty($id))
         {
-            $sql = "SELECT nom_article, nom_fournisseur, prenom_fournisseur, tel_fournisseur, e.quantite, prix, date_entre, a.id, libelle_categorie, c.id AS id_categorie
-            FROM article AS a, entreStock AS e, categorie_article AS c WHERE e.id_article=a.id AND e.id_categorie=c.id  AND e.id=? ";
+            $sql = "SELECT nom_article, nom_fournisseur, prenom_fournisseur, tel_fournisseur, date_entre, libelle_categorie, e.quantite, prix, e.id, a.id AS id_article, c.id AS id_categorie 
+            FROM entre_stock AS e, categorie_article AS c, article AS a WHERE e.id_article=a.id AND e.id_categorie=c.id AND e.id=? ";
+
         $req = $GLOBALS ['connexion']->prepare($sql);
         $req->execute(array($id));
 
@@ -122,8 +124,8 @@
         } else {
 
         
-            $sql = "SELECT nom_article, nom_fournisseur, prenom_fournisseur, tel_fournisseur, e.quantite, prix, date_entre, a.id, libelle_categorie, c.id AS id_categorie 
-            FROM article AS a, entre_Stock AS e, categorie_article AS c WHERE e.id_article=a.id";
+            $sql = "SELECT nom_article, nom_fournisseur, prenom_fournisseur, tel_fournisseur, date_entre, libelle_categorie,  e.quantite, e.prix, e.id, a.id AS id_article, c.id AS id_categorie 
+            FROM entre_stock AS e, categorie_article AS c, article AS a WHERE e.id_article=a.id AND e.id_categorie=c.id  ";
 
         $req = $GLOBALS ['connexion']->prepare($sql);
         $req->execute();
@@ -131,6 +133,10 @@
         return $req->fetchAll();
         }
     }
+
+    
+
+  
 
     function getAllEntreStock(){
         $sql= "SELECT COUNT(*) AS nbre FROM entre_stock ";

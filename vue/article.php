@@ -128,7 +128,6 @@
                     $articles= getArticle(); 
                 }
                 
-                $articles = getArticle();
                 if (!empty($articles) && is_array($articles)){
                     foreach ($articles as $key => $value){
                         ?>  

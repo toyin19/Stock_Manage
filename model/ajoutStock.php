@@ -1,6 +1,5 @@
 <?php
-session_start();
-include 'connexion.php';
+
 include_once "function.php";
 
 if (
@@ -12,8 +11,11 @@ if (
     && !empty($_POST['prenom_fournisseur'])
     && !empty($_POST['tel_fournisseur'])
 ){
-
-    $sql="INSERT INTO entre_stock(id_article, id_categorie, quantite, prix, nom_fournisseur, prenom_fournisseur, tel_fournisseur) VALUES(?, ?, ?, ?, ?, ?, ?) ";
+    $article = getArticle($_POST['id_article']);
+    if (!empty($article) && is_array($article))
+    {
+         
+            $sql="INSERT INTO entre_stock(id_article, id_categorie, quantite, prix, nom_fournisseur, prenom_fournisseur, tel_fournisseur) VALUES(?, ?, ?, ?, ?, ?, ?) ";
             $req = $connexion->prepare($sql);
         
             $req->execute(array(
@@ -40,16 +42,17 @@ if (
                 $_SESSION['message']['text'] = "entrée effectuée avec succès";
                 $_SESSION['message']['type'] = "success";
                 }else {
-                    $_SESSION['message']['text'] ="Impossible d'effectuer cette entrée";
+                    $_SESSION['message']['text'] ="une erreur s'est produite";
                     $_SESSION['message']['type'] = "danger";
                   
                 }     
             }else {
-                $_SESSION['message']['text'] ="une erreur s'est produite lors de l'entrée";
+                $_SESSION['message']['text'] ="une erreur s'est produite lors de la l'entrée de l'article";
                 $_SESSION['message']['type'] = "danger"; 
             }
         
-        
+    
+    }
    
 }else {
     $_SESSION['message']['text'] ="un champ  obligatoire non renseigné";

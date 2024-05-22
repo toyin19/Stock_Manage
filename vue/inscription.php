@@ -24,7 +24,7 @@ include_once '../model/function.php'
     <div class="overview-boxes" >
 
         <div class="box">
-            <form   action="<?= !empty($_GET['id']) ? "../model/modifUtilisateur.php" : "../model/ajoutUtilisateur.php" ?>" method="post">
+            <form   action="<?= !empty($_GET['id']) ? "../model/modifUtilisateur.php" : "../model/inscription.php" ?>" method="post">
 
             <label for="nom"> Nom </label>
             <input value="<?= !empty($_GET['id']) ? $utilisateur['nom'] : "" ?>" type="text" name="nom" id="nom" placeholder="veuillez entrez votre nom "/>

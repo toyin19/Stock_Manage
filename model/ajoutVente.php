@@ -1,5 +1,4 @@
 <?php
-include 'connexion.php';
 include_once "function.php";
 
 if (
