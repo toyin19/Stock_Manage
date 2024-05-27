@@ -675,3 +675,23 @@ ol.mtable li:nth-child(even) {
     height: 100vh;
     /* Facultatif : assurez-vous que le conteneur a une hauteur de 100% de la vue pour centrer verticalement */
 }
+
+
+/*
+*   New update
+*/
+.checkout-flex{
+    display: flex;
+    gap:10px;
+}
+.quantity-controls{
+    display: flex;
+    align-items: center;
+    gap:5px;
+}
+.qty-btn{
+    background: #2697ff;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
