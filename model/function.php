@@ -63,32 +63,62 @@
         return $req->fetchAll();
         }
     }
-
-    function getVente($id=null) {
-        if(!empty($id))
-        {
-            $sql = "SELECT nom_article, nom, prenom, v.quantite, prix, date_vente, v.id, prix_unitaire, email, telephone 
-            FROM vente AS v, client AS c, article AS a WHERE v.id_article=a.id AND v.id_client=c.id AND v.id=? AND etat=?";
-
-        $req = $GLOBALS ['connexion']->prepare($sql);
-        $req->execute(array($id,1));
-
-        return $req->fetch();
-
+    function getVente($id = null) {
+        if (!empty($id)) {
+            $sql = "SELECT 
+                        v.id AS vente_id, 
+                        v.date_vente, 
+                        v.article, 
+                        c.nom, 
+                        c.prenom, 
+                        c.telephone 
+                    FROM 
+                        vente AS v
+                        INNER JOIN client AS c ON v.id_client = c.id 
+                    WHERE 
+                        v.id = ?";
+            
+            $req = $GLOBALS['connexion']->prepare($sql);
+            $req->execute([$id]);
+            $vente = $req->fetch(PDO::FETCH_ASSOC);
+    
+            return $vente;
         } else {
-
-        
-        $sql = "SELECT nom_article, nom, prenom, v.quantite, prix, date_vente, v.id, a.id AS idArticle
-        FROM vente AS v, client AS c, article AS a WHERE v.id_article=a.id AND v.id_client=c.id AND etat=?";
-
-        $req = $GLOBALS ['connexion']->prepare($sql);
-        $req->execute(array(1));
-
-        return $req->fetchAll();
+            
+            return [];
         }
     }
-
-
+    
+    function parseArticlesFromJson($articlesJson) {
+        $articles = json_decode($articlesJson, true);
+        $parsedArticles = [];
+    
+        if (is_array($articles)) {
+            foreach ($articles as $article) {
+                $parsedArticle = [];
+    
+                
+                $sql = "SELECT nom_article AS nom_article, prix_unitaire FROM article WHERE id = ?";
+                $req = $GLOBALS['connexion']->prepare($sql);
+                $req->execute([$article['id']]);
+                $articleDetails = $req->fetch(PDO::FETCH_ASSOC);
+    
+              
+                if ($articleDetails) {
+                    $parsedArticle['id'] = $article['id'];
+                    $parsedArticle['quantite'] = $article['quantite'];
+                    $parsedArticle = array_merge($parsedArticle, $articleDetails);
+                    $parsedArticles[] = $parsedArticle;
+                }
+            }
+        }
+    
+        return $parsedArticles;
+    }
+    
+    
+    
+    
 
     function getFournisseur($id=null) {
         if(!empty($id))
@@ -145,8 +175,7 @@
 
         return $req->fetch();
     }
-
-    function getAllVente(){
+    function getAllVentenbr(){
         $sql= "SELECT COUNT(*) AS nbre FROM vente ";
         $req = $GLOBALS ['connexion']->prepare($sql);
         $req->execute();
@@ -154,6 +183,75 @@
         return $req->fetch();
     }
 
+function getAllVente() {
+    $sql = "
+        SELECT 
+            v.id AS vente_id, 
+            v.article, 
+            v.etat,
+            CONCAT(c.nom, ' ', c.prenom) AS client, 
+            v.date_vente 
+        FROM 
+            vente AS v
+            INNER JOIN client AS c ON v.id_client = c.id ";
+
+    $req = $GLOBALS['connexion']->prepare($sql);
+    $req->execute();
+    $ventes = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($ventes === false) {
+        return [];
+    }
+
+    foreach ($ventes as &$vente) {
+        $articleDetails = json_decode($vente['article'], true);
+        $vente['montant_total'] = calculateTotal($articleDetails);
+        $vente['nombre_total_produits'] = calculateTotalQuantity($articleDetails);
+    }
+
+    return $ventes;
+}
+    
+    function calculateTotal($articlesJson) {
+        $connexion = $GLOBALS['connexion'];
+        $articles = json_decode($articlesJson, true);
+        
+        $total = 0;
+    
+        if (!is_array($articles)) {
+            return $total;
+        }
+    
+        foreach ($articles as $article) {
+            $sql = "SELECT prix_unitaire FROM article WHERE id = ?";
+            $req = $connexion->prepare($sql);
+            $req->execute(array($article['id']));
+            $prixUnitaire = $req->fetchColumn();
+    
+            if ($prixUnitaire !== false) {
+                $total += $prixUnitaire * $article['quantite'];
+            }
+        }
+    
+        return $total;
+    }
+    
+    
+    function calculateTotalQuantity($articlesJson) {
+        $articles = json_decode($articlesJson, true);
+        $totalQuantity = 0;
+    
+        if (!is_array($articles)) {
+            return $totalQuantity;
+        }
+    
+        foreach ($articles as $article) {
+            $totalQuantity += 1;
+        }
+    
+        return $totalQuantity;
+    }
+    
     function getAllArticle(){
         $sql= "SELECT COUNT(*) AS nbre FROM article ";
         $req = $GLOBALS ['connexion']->prepare($sql);

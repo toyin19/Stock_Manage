@@ -1,4 +1,12 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['mail'])) {
+        header("Location:connexion.php");
+        exit; 
+    }
+?>
+<?php
 	include 'entete.php';
 ?>
    <div class="home-content">
@@ -17,7 +25,7 @@
                 <div class="box">
                     <div class="right-side">
                         <div class="box-topic">Vente</div>
-                        <div class="number"><?php echo getAllVente()['nbre'] ?></div>
+                        <div class="number"><?php echo getAllVentenbr()['nbre'] ?></div>
                         <div class="indicator">
                             <i class="bx bx-up-arrow-alt"></i>
                             <span class="text">Depuis hier</span>

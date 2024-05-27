@@ -1,4 +1,13 @@
 <?php
+     if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (!isset($_SESSION['mail'])) {
+        header("Location:connexion.php");
+        exit; 
+    }
+?>
+<?php
 
 include 'entete.php';
 
@@ -88,37 +97,45 @@ if (!empty($_GET['id'])) {
         </div>
 
         <div class="box">
-            <table class="mtable">
-                <tr>
-                    <th>Article</th>
-                    <th>Client</th>
-                    <th>Quantité</th>
-                    <th>Prix</th>
-                    <th>Date</th>
-                    <th>Actions</th>
-                </tr>
-                <?php
-
-                $vente = getVente();
-                if (!empty($vente) && is_array($vente)) {
-                    foreach ($vente as $key => $value) {
-                ?>
-                        <tr>
-                            <td><?= $value['nom_article'] ?></td>
-                            <td><?= $value['nom'] . " " . $value['prenom'] ?></td>
-                            <td><?= $value['quantite'] ?></td>
-                            <td><?= $value['prix'] ?></td>
-                            <td><?= date('d/m/y H:i:s', strtotime($value['date_vente'])) ?></td>
-                            <td>
-                                <a href="recuVente.php?id=<?= $value['id'] ?>"><i class='bx bx-receipt'></i></a>
-                                <a onclick="annuleVente(<?= $value['id'] ?>, <?= $value['idArticle'] ?>, <?= $value['quantite'] ?>)" style="color: red;"><i class='bx bx-stop-circle'></i></a>
-                            </td>
-                        </tr>
-                <?php
-                    }
+                <table class="mtable">
+            <tr>
+                <th>ID Vente</th>
+                <th>Montant Total</th>
+                <th>Client</th>
+                <th>Nombre Total de Produits</th>
+                <th>Date</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+            <?php
+            $ventes = getAllVente();
+            if (!empty($ventes) && is_array($ventes)) {
+                foreach ($ventes as $vente) {
+                    $articles = json_decode($vente['article'], true);
+                    $total = calculateTotal($articles);
+                    $totalQuantity = calculateTotalQuantity($articles);
+            ?>
+                    <tr>
+                        <td><?= htmlspecialchars($vente['vente_id']) ?></td>
+                        <td><?= number_format($total, 2) ?> fcfa</td>
+                        <td><?= htmlspecialchars($vente['client']) ?></td>
+                        <td><?= htmlspecialchars($totalQuantity) ?></td>
+                        <td><?= date('d/m/y H:i:s', strtotime($vente['date_vente'])) ?></td>
+                        <td><?= $vente['etat'] ?></td>
+                        <td>
+                            <a href="recuVente.php?id=<?= htmlspecialchars($vente['vente_id']) ?>"><i class='bx bx-receipt'></i></a>
+                            <a onclick="annuleVente(<?= htmlspecialchars($vente['vente_id']) ?>)" style="color: red;"><i class='bx bx-stop-circle'></i></a>
+                        </td>
+                    </tr>
+            <?php
                 }
-                ?>
-            </table>
+            } else {
+                echo '<tr><td colspan="6">Aucune vente trouvée</td></tr>';
+            }
+            ?>
+                    </table>
+
+
         </div>
 
     </div>

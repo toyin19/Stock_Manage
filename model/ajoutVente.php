@@ -22,15 +22,15 @@ if (
         }
         if($good_quantity){
             
-                $sql="INSERT INTO vente(article, id_client, prix) VALUES(?, ?, ?) ";
+                $sql="INSERT INTO vente(article,id_article, id_client, prix) VALUES(?, ?, ?,?) ";
                 $req = $connexion->prepare($sql);
             
                 $req->execute(array(
                     json_encode($_POST['produits']),
+                    9, 
                     $_POST['id_client'],
                     $_POST['prix']
                 ));
-                
                 // if ($req->rowCount()!=0) {
     
                 //     $sql= "UPDATE article SET quantite= quantite-? WHERE id=?";
