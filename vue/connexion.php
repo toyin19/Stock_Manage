@@ -3,7 +3,7 @@
 
 include_once '../model/connexion.php';
 
-
+session_start();
 
 //Validation du formulaire
 
@@ -29,7 +29,6 @@ include_once '../model/connexion.php';
             //Vérifier si le mot de passe est correct
             if(password_verify($user_password, $userInfo['mot_passe'])){
                 $_SESSION['mail']=$_POST['email'];
-
                 //Rediriger l'utilisateur vers la page d'accueil
                 header('Location:dashboard.php');
     

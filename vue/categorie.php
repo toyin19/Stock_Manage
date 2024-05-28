@@ -1,20 +1,3 @@
-<?php
-    session_start();
-
-    if (!isset($_SESSION['mail'])) {
-        header("Location:connexion.php");
-        exit; 
-    }
-?>
-<?php
-
-	include 'entete.php';
-
-    if (!empty($_GET['id'])) {
-        $categorie = getCategorie($_GET['id']);
-    }
-
-?>
 
 <div class="home-content">
     <div class="overview-boxes">

@@ -1,12 +1,4 @@
-<?php
-     if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    if (!isset($_SESSION['mail'])) {
-        header("Location:connexion.php");
-        exit; 
-    }
-?>
+
 <?php
 
 include 'entete.php';
@@ -80,7 +72,7 @@ if (!empty($_GET['id'])) {
                 <button type="submit">Valider</button>
 
                 <?php
-
+                
                 if (!empty($_SESSION['message']['text'])) {
                 ?>
 
@@ -104,7 +96,6 @@ if (!empty($_GET['id'])) {
                 <th>Client</th>
                 <th>Nombre Total de Produits</th>
                 <th>Date</th>
-                <th>Etat</th>
                 <th>Actions</th>
             </tr>
             <?php
@@ -121,7 +112,6 @@ if (!empty($_GET['id'])) {
                         <td><?= htmlspecialchars($vente['client']) ?></td>
                         <td><?= htmlspecialchars($totalQuantity) ?></td>
                         <td><?= date('d/m/y H:i:s', strtotime($vente['date_vente'])) ?></td>
-                        <td><?= $vente['etat'] ?></td>
                         <td>
                             <a href="recuVente.php?id=<?= htmlspecialchars($vente['vente_id']) ?>"><i class='bx bx-receipt'></i></a>
                             <a onclick="annuleVente(<?= htmlspecialchars($vente['vente_id']) ?>)" style="color: red;"><i class='bx bx-stop-circle'></i></a>

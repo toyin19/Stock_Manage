@@ -1,7 +1,14 @@
 <?php
 
+session_start();
+include_once '../model/function.php';
 
-include_once '../model/function.php'
+    if (!isset($_SESSION['mail'])) {
+       
+        header("Location:connexion.php");
+        exit; 
+    }
+
 ?>
 
 <!DOCTYPE html>
