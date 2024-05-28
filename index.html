@@ -282,3 +282,47 @@
         };
     </script>
 </body>
+
+
+
+<table class="mtable">
+    <tr>
+        <th>Article</th>
+        <th>Client</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    <?php 
+    
+    $vente = getVente();
+    if (!empty($vente) && is_array($vente)){
+        foreach ($vente as $key => $value){
+            ?>
+    <tr>
+        <td>
+            <?= $value['nom_article'] ?>
+        </td>
+        <td>
+            <?= $value['nom']." ". $value['prenom'] ?>
+        </td>
+        <td>
+            <?= $value['quantite'] ?>
+        </td>
+        <td>
+            <?= $value['prix'] ?>
+        </td>
+        <td>
+            <?= date('d/m/y H:i:s', strtotime($value['date_vente'])) ?>
+        </td>
+        <td>
+            <a href="recuVente.php?id=<?= $value['id']?>"><i class='bx bx-receipt'></i></a>
+            <a onclick="annuleVente(<?= $value['id']?>, <?= $value['idArticle']?>, <?= $value['quantite']?>)" style="color: red;"><i class='bx bx-stop-circle'></i></a>
+        </td>
+    </tr>
+    <?php
+        }
+    }
+    ?>
+</table>

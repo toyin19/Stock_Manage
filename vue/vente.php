@@ -80,6 +80,7 @@
          <div class="box">
             <table class="mtable">
                 <tr>
+                    <th>ID</th>
                     <th>Article</th>
                     <th>Client</th>
                     <th>Quantité</th>
@@ -94,6 +95,7 @@
                     foreach ($vente as $key => $value){
                         ?>  
                 <tr>
+                    <td><?= $value['id'] ?></td>
                     <td><?= $value['nom_article'] ?></td>
                     <td><?= $value['nom']." ". $value['prenom'] ?></td>
                     <td><?= $value['quantite'] ?></td>

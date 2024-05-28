@@ -35,8 +35,8 @@
                    <p><?= $vente['telephone'] ?></p>
             </div>
             <div class="cote-a-cote" style="width: 50%;">
-                    <P>Adresse:</P>
-                    <p><?= $vente['adresse'] ?></p>
+                    <P>Email:</P>
+                    <p><?= $vente['email'] ?></p>
             </div>
 
         <br>
