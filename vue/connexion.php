@@ -34,18 +34,18 @@ include_once '../model/connexion.php';
     
             }else{
 
-                $_SESSION['message']['text'] ="Votre mot de passe est incorrect...";
-                $_SESSION['message']['type'] = "danger";
+                $_SESSION['messageConn']['text'] ="Votre mot de passe est incorrect...";
+                $_SESSION['messageConn']['type'] = "danger";
             }
 
         }else{
-            $_SESSION['message']['text'] ="Votre email est incorrect...";
-            $_SESSION['message']['type'] = "danger";
+            $_SESSION['messageConn']['text'] ="Votre email est incorrect...";
+            $_SESSION['messageConn']['type'] = "danger";
         }
 
     }else{
-        $_SESSION['message']['text'] ="Veuillez compléter tous les champs...";
-        $_SESSION['message']['type'] = "danger";
+        $_SESSION['messageConn']['text'] ="Veuillez compléter tous les champs...";
+        $_SESSION['messageConn']['type'] = "danger";
     }
 
 
@@ -87,10 +87,10 @@ include_once '../model/connexion.php';
 
                  <?php 
 
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageConn']['text'])) {
                 ?>
-               <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+               <div class="alert <?= ($_SESSION['messageConn']['type']) ?>">
+                <?= ($_SESSION['messageConn']['text']) ?>
                </div>
 
                 <?php      

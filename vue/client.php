@@ -28,10 +28,10 @@
 
                  <?php 
 
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageCli']['text'])) {
                 ?>
-                <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+                <div class="alert <?= ($_SESSION['messageCli']['type']) ?>">
+                <?= ($_SESSION['messageCli']['text']) ?>
             </div>
 
                 <?php      

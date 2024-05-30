@@ -46,11 +46,11 @@
 
                  <?php 
                   
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageArti']['text'])) {
                 ?>
 
-                <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+                <div class="alert <?= ($_SESSION['messageArti']['type']) ?>">
+                <?= ($_SESSION['messageArti']['text']) ?>
             </div>
                
                 <?php      

@@ -13,19 +13,19 @@ if (
         
     ));
     if ($req->rowCount()!=0) {
-        $_SESSION['message']['text'] = "categorie ajouté avec succès";
-        $_SESSION['message']['type'] = "success";
+        $_SESSION['messageCate']['text'] = "categorie ajouté avec succès";
+        $_SESSION['messageCate']['type'] = "success";
         
     }else {
-        $_SESSION['message']['text'] ="une erreur s'est produite";
-        $_SESSION['message']['type'] = "danger";
+        $_SESSION['messageCate']['text'] ="une erreur s'est produite";
+        $_SESSION['messageCate']['type'] = "danger";
       
     }
 
     
 }else {
-    $_SESSION['message']['text'] ="un champ  obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageCate']['text'] ="un champ  obligatoire non renseigné";
+    $_SESSION['messageCate']['type'] = "danger";
        
 }
 header('Location: ../vue/categorie.php');

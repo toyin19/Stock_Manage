@@ -20,10 +20,10 @@
 
                  <?php 
 
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageCate']['text'])) {
                 ?>
-                <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+                <div class="alert <?= ($_SESSION['messageCate']['type']) ?>">
+                <?= ($_SESSION['messageCate']['text']) ?>
             </div>
 
                 <?php      

@@ -20,19 +20,19 @@ if (
         $_POST['id']
     ));
     if ($req->rowCount()!=0) {
-        $_SESSION['message']['text'] = "client modifier avec succès";
-        $_SESSION['message']['type'] = "success";
+        $_SESSION['messageCli']['text'] = "client modifier avec succès";
+        $_SESSION['messageCli']['type'] = "success";
         
     }else {
-        $_SESSION['message']['text'] ="rien n'a été modifier";
-        $_SESSION['message']['type'] = "warning";
+        $_SESSION['messageCli']['text'] ="rien n'a été modifier";
+        $_SESSION['messageCli']['type'] = "warning";
       
     }
 
     
 }else {
-    $_SESSION['message']['text'] ="un champ obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageCli']['text'] ="un champ obligatoire non renseigné";
+    $_SESSION['messageCli']['type'] = "danger";
        
 }
 header('Location: ../vue/client.php');

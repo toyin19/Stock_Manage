@@ -12,8 +12,8 @@ if (
     {
         if($_POST['quantite']>$article['quantite']) {
 
-        $_SESSION['message']['text'] ="La quantité à vendre n'est pas disponible";
-        $_SESSION['message']['type'] = "danger";
+        $_SESSION['messageVent']['text'] ="La quantité à vendre n'est pas disponible";
+        $_SESSION['messageVent']['type'] = "danger";
 
         } else {
             $sql="INSERT INTO vente(id_article, id_client, quantite, prix) VALUES(?, ?, ?, ?) ";
@@ -37,24 +37,24 @@ if (
                 ));
 
                 if ($req->rowCount()!=0) {
-                $_SESSION['message']['text'] = "vente effectuée avec succès";
-                $_SESSION['message']['type'] = "success";
+                $_SESSION['messageVent']['text'] = "vente effectuée avec succès";
+                $_SESSION['messageVent']['type'] = "success";
                 }else {
-                    $_SESSION['message']['text'] ="Impossible d'effectuer cette vente";
-                    $_SESSION['message']['type'] = "danger";
+                    $_SESSION['messageVent']['text'] ="Impossible d'effectuer cette vente";
+                    $_SESSION['messageVent']['type'] = "danger";
                   
                 }     
             }else {
-                $_SESSION['message']['text'] ="une erreur s'est produite lors de la vente";
-                $_SESSION['message']['type'] = "danger"; 
+                $_SESSION['messageVent']['text'] ="une erreur s'est produite lors de la vente";
+                $_SESSION['messageVent']['type'] = "danger"; 
             }
         
         }
     }
    
 }else {
-    $_SESSION['message']['text'] ="un champ  obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageVent']['text'] ="un champ  obligatoire non renseigné";
+    $_SESSION['messageVent']['type'] = "danger";
        
 }
 header('Location: ../vue/vente.php');

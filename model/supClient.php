@@ -19,13 +19,13 @@ if(isset($_GET['id']) AND !empty($_GET['id'])){
 
 
     }else{
-        $_SESSION['message']['text'] = "Aucune question n'a été trouvée";
-        $_SESSION['message']['type'] = "success";
+        $_SESSION['messageCli']['text'] = "Aucune question n'a été trouvée";
+        $_SESSION['messageCli']['type'] = "success";
         
        
     }
 
 }else{
-    $_SESSION['message']['text'] = "Aucune question n'a été trouvée";
-    $_SESSION['message']['type'] = "success";
+    $_SESSION['messageCli']['text'] = "Aucune question n'a été trouvée";
+    $_SESSION['messageCli']['type'] = "success";
 }

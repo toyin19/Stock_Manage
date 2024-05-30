@@ -42,15 +42,15 @@ if (
     ]);
   
     if ($req->rowCount() != 0) {
-        $_SESSION['message']['text'] = "entrée modifié avec succès";
-        $_SESSION['message']['type'] = "success";
+        $_SESSION['messageStoc']['text'] = "entrée modifié avec succès";
+        $_SESSION['messageStoc']['type'] = "success";
     } else {
-        $_SESSION['message']['text'] = "Rien n'a été modifié";
-        $_SESSION['message']['type'] = "warning";
+        $_SESSION['messageStoc']['text'] = "Rien n'a été modifié";
+        $_SESSION['messageStoc']['type'] = "warning";
     }
 } else {
-    $_SESSION['message']['text'] = "Un champ obligatoire n'est pas renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageStoc']['text'] = "Un champ obligatoire n'est pas renseigné";
+    $_SESSION['messageStoc']['type'] = "danger";
 }
 
 header('Location: ../vue/entreStock.php');

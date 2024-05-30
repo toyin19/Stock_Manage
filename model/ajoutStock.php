@@ -39,24 +39,24 @@ if (
                 ));
 
                 if ($req->rowCount()!=0) {
-                $_SESSION['message']['text'] = "entrée effectuée avec succès";
-                $_SESSION['message']['type'] = "success";
+                $_SESSION['messageStoc']['text'] = "entrée effectuée avec succès";
+                $_SESSION['messageStoc']['type'] = "success";
                 }else {
-                    $_SESSION['message']['text'] ="une erreur s'est produite";
-                    $_SESSION['message']['type'] = "danger";
+                    $_SESSION['messageStoc']['text'] ="une erreur s'est produite";
+                    $_SESSION['messageStoc']['type'] = "danger";
                   
                 }     
             }else {
-                $_SESSION['message']['text'] ="une erreur s'est produite lors de la l'entrée de l'article";
-                $_SESSION['message']['type'] = "danger"; 
+                $_SESSION['messageStoc']['text'] ="une erreur s'est produite lors de la l'entrée de l'article";
+                $_SESSION['messageStoc']['type'] = "danger"; 
             }
         
     
     }
    
 }else {
-    $_SESSION['message']['text'] ="un champ  obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageStoc']['text'] ="un champ  obligatoire non renseigné";
+    $_SESSION['messageStoc']['type'] = "danger";
        
 }
 header('Location: ../vue/entreStock.php');
