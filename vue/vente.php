@@ -2,7 +2,10 @@
 <?php
 
 include 'entete.php';
-
+if (isset($_SESSION['role']) && $_SESSION['role']!='administrateur' && $_SESSION['role']!='vendeur') {
+    header("Location:dashboard.php");
+    exit; 
+}
 
 
 if (!empty($_GET['id'])) {
@@ -13,6 +16,9 @@ if (!empty($_GET['id'])) {
 
 <div class="home-content">
     <div class="overview-boxes">
+    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='vendeur') {
+            ?>
         <div class="box">
             <form action="<?= !empty($_GET['id']) ? "../model/modifVente.php" : "../model/ajoutVente.php" ?>" id="buy-form" method="post">
                 <input value="<?= !empty($_GET['id']) ? $article['id'] : "" ?>" type="hidden" name="id" id="id" />
@@ -87,6 +93,9 @@ if (!empty($_GET['id'])) {
             </form>
 
         </div>
+        <?php      
+               }
+                ?>
 
         <div class="box">
                 <table class="mtable">
@@ -96,7 +105,13 @@ if (!empty($_GET['id'])) {
                 <th>Client</th>
                 <th>Nombre Total de Produits</th>
                 <th>Date</th>
+                <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='vendeur') {
+            ?>
                 <th>Actions</th>
+                <?php      
+               }
+                ?>
             </tr>
             <?php
             $ventes = getAllVente();
@@ -112,10 +127,16 @@ if (!empty($_GET['id'])) {
                         <td><?= htmlspecialchars($vente['client']) ?></td>
                         <td><?= htmlspecialchars($totalQuantity) ?></td>
                         <td><?= date('d/m/y H:i:s', strtotime($vente['date_vente'])) ?></td>
+                        <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='vendeur') {
+            ?>
                         <td>
                             <a href="recuVente.php?id=<?= htmlspecialchars($vente['vente_id']) ?>"><i class='bx bx-receipt'></i></a>
                             <a onclick="annuleVente(<?= htmlspecialchars($vente['vente_id']) ?>)" style="color: red;"><i class='bx bx-stop-circle'></i></a>
                         </td>
+                        <?php      
+                         }
+                         ?>
                     </tr>
             <?php
                 }

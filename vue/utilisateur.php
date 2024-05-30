@@ -1,5 +1,11 @@
 <?php
 include 'entete.php';
+if (isset($_SESSION['role']) and $_SESSION['role']!='administrateur') {
+       
+    header("Location:dashboard.php");
+    exit; 
+}
+
 if (!empty($_GET['id'])) {
     $utilisateur = getUtilisateur($_GET['id']);
 }
@@ -20,6 +26,17 @@ if (!empty($_GET['id'])) {
 
             <label for="prenom"> Prenom </label>
             <input value="<?= !empty($_GET['id']) ? $utilisateur['prenom'] : "" ?>" type="text" name="prenom" id="prenom" placeholder="veuillez entrez votre prenom "/>
+
+            <label for="username"> Username </label>
+            <input value="<?= !empty($_GET['id']) ? $utilisateur['username'] : "" ?>" type="text" name="username" id="username" placeholder="veuillez entrez votre username "/>
+
+            <label for="pet-select">Role</label>
+
+<select name="role" id="role-select">
+  <option value="">--Selectionner un role--</option>
+  <option value="vendeur">Vendeur</option>
+  <option value="responsable_logistique">Responsable logistique</option>
+</select>
 
             <label for="telephone"> Téléphone </label>
             <input value="<?= !empty($_GET['id']) ? $utilisateur['telephone'] : "" ?>" type="text" name="telephone" id="telephone" placeholder="veuillez entrez votre numero de téléphone "/>
@@ -53,6 +70,8 @@ if (!empty($_GET['id'])) {
                     <th>ID</th>
                     <th>Nom</th>
                     <th>Prenom</th>
+                    <th>Username</th>
+                    <th>Role</th>
                     <th>Téléphone</th>
                     <th>Email</th>
                     <th>Actions</th>
@@ -67,6 +86,8 @@ if (!empty($_GET['id'])) {
                     <td><?= $value['id'] ?></td>
                     <td><?= $value['nom'] ?></td>
                     <td><?= $value['prenom'] ?></td>
+                    <td><?= $value['username'] ?></td>
+                    <td><?= $value['role'] ?></td>
                     <td><?= $value['telephone'] ?></td>
                     <td><?= $value['email'] ?></td>
                     <td>

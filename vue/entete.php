@@ -2,7 +2,7 @@
 
 include_once '../model/function.php';
 
-    if (!isset($_SESSION['mail'])) {
+    if (!isset($_SESSION['username'])) {
        
         header("Location:connexion.php");
         exit; 
@@ -48,7 +48,9 @@ include_once '../model/function.php';
                     <span class="links_name">Article</span>
                 </a>
             </li>
-
+            <?php
+             if(isset($_SESSION['role']) and ($_SESSION['role']=='administrateur') or $_SESSION['role']=='responsable_logistique') {
+            ?>
             <li>
                 <a href="categorie.php" class=" <?php
                   echo  basename($_SERVER['PHP_SELF'])=="categorie.php"? "active" : "" ?>">
@@ -64,7 +66,13 @@ include_once '../model/function.php';
                     <span class="links_name">Entrée</span>
                 </a>
             </li>
+            <?php
+             } 
+             ?>
 
+             <?php
+             if(isset($_SESSION['role']) and ($_SESSION['role']=='administrateur') or $_SESSION['role']=='vendeur') {
+            ?>
             <li>
                 <a href="client.php" class=" <?php
                   echo  basename($_SERVER['PHP_SELF'])=="client.php"? "active" : "" ?>">
@@ -72,7 +80,7 @@ include_once '../model/function.php';
                     <span class="links_name">Client</span>
                 </a>
             </li>
-
+            
             <li>
                 <a href="vente.php" class=" <?php
                   echo  basename($_SERVER['PHP_SELF'])=="vente.php"? "active" : "" ?>">
@@ -80,8 +88,13 @@ include_once '../model/function.php';
                     <span class="links_name">Vente</span>
                 </a>
             </li>
+            <?php
+             } 
+             ?>
            
-           
+            <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='administrateur'){
+            ?>
             <li>
                 <a href="utilisateur.php"class=" <?php
                   echo  basename($_SERVER['PHP_SELF'])=="utilisateur.php"? "active" : "" ?>">
@@ -89,6 +102,9 @@ include_once '../model/function.php';
                     <span class="links_name">Utilisateur</span>
                 </a>
             </li>
+            <?php
+             } 
+             ?>
             <!-- <li>
           <a href="#">
             <i class="bx bx-message" ></i>
@@ -131,7 +147,7 @@ include_once '../model/function.php';
             </div>
             <div class="profile-details">
                 <!--<img src="images/profile.jpg" alt="">-->
-                <span class="admin_name">Komche</span>
+                <span class="admin_name"><?php echo $_SESSION['username']?></span>
                 <i class="bx bx-chevron-down"></i>
             </div>
         </nav>

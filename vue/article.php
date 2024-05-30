@@ -10,7 +10,9 @@
 
 <div class="home-content">
     <div class="overview-boxes">
-        
+    <?php
+             if(isset($_SESSION['role']) and ($_SESSION['role']=='administrateur') or $_SESSION['role']=='responsable_logistique') {
+            ?>
          <div  class="box">
             <form action="<?= !empty($_GET['id']) ? "../model/modifArticle.php" : "../model/ajoutArticle.php" ?>" method="post">
             <label for="id_article"> Nom de l'article</label>
@@ -60,6 +62,9 @@
             </form>
               
         </div>
+        <?php      
+               }
+                ?>
 
         <div style="display:block" class="box">
             <form action="" method="GET">
@@ -117,7 +122,13 @@
                     <th>Catégorie</th>
                     <th>Quantité</th>
                     <th>Prix unitaire</th>
+                    <?php
+             if(isset($_SESSION['role']) and ($_SESSION['role']=='administrateur') or $_SESSION['role']=='responsable_logistique') {
+            ?>
                     <th>Actions</th>
+                    <?php      
+               }
+                ?>
                 </tr>
                 <?php 
 
@@ -136,9 +147,15 @@
                     <td><?= $value['libelle_categorie'] ?></td>
                     <td><?= $value['quantite'] ?></td>
                     <td><?= $value['prix_unitaire'] ?></td>
+                    <?php
+             if(isset($_SESSION['role']) and ($_SESSION['role']=='administrateur') or $_SESSION['role']=='responsable_logistique') {
+            ?>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
                     </td>
+                    <?php      
+               }
+                ?>
 
                 </tr>
                 

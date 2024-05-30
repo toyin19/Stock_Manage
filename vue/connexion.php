@@ -8,16 +8,16 @@ include_once '../model/connexion.php';
 //Validation du formulaire
 
     //Vérifier si le user a bien complété tous les champs
-    if(!empty($_POST['email']) AND !empty($_POST['mot_passe'])){
+    if(!empty($_POST['username']) AND !empty($_POST['mot_passe'])){
         
         //Les données de l'user
-        $user_pseudo = htmlspecialchars($_POST['email']);
+        $user_pseudo = htmlspecialchars($_POST['username']);
         $user_password = htmlspecialchars($_POST['mot_passe']);
         
        
 
-        //Vérifier si l'utilisateur existe (si l'email est correct)
-        $checkIfUserExists = $connexion->prepare('SELECT * FROM utilisateur WHERE email = ?');
+        //Vérifier si l'utilisateur existe (si l'username est correct)
+        $checkIfUserExists = $connexion->prepare('SELECT * FROM utilisateur WHERE username = ?');
         $checkIfUserExists->execute(array($user_pseudo));
 
           $userInfo = null;
@@ -28,7 +28,8 @@ include_once '../model/connexion.php';
 
             //Vérifier si le mot de passe est correct
             if(password_verify($user_password, $userInfo['mot_passe'])){
-                $_SESSION['mail']=$_POST['email'];
+                $_SESSION['username']=$_POST['username'];
+                $_SESSION['role']=$userInfo['role'];
                 //Rediriger l'utilisateur vers la page d'accueil
                 header('Location:dashboard.php');
     
@@ -39,7 +40,7 @@ include_once '../model/connexion.php';
             }
 
         }else{
-            $_SESSION['message']['text'] ="Votre email est incorrect...";
+            $_SESSION['message']['text'] ="Votre username est incorrect...";
             $_SESSION['message']['type'] = "danger";
         }
 
@@ -77,10 +78,10 @@ include_once '../model/connexion.php';
         <div class="box">
             <form   action="" method="post">
           
-            <label for="adresse">Email </label>
-            <input value="<?= !empty($_GET['id']) ? $utilisateur['email'] : "" ?>" type="email" name="email" id="email" placeholder="veuillez entrez  votre email "/>
+            <label for="username">Username </label>
+            <input value="<?= !empty($_GET['id']) ? $utilisateur['username'] : "" ?>" type="text" name="username" id="username" placeholder="veuillez entrez  votre username "/>
 
-            <label for="adresse">Mot de passe </label>
+            <label for="mot_passe">Mot de passe </label>
             <input value="<?= !empty($_GET['id']) ? $utilisateur['mot_passe'] : "" ?>" type="password" name="mot_passe" id="mot_passe" placeholder="veuillez entrez votre mot_passe de "/>
 
              <button type="submit" name="login">Se connecter</button>

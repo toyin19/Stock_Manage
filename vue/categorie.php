@@ -1,7 +1,10 @@
 <?php
 
 	include 'entete.php';
-
+    if (isset($_SESSION['role']) && $_SESSION['role']!='administrateur' && $_SESSION['role']!='responsable_logistique') {
+        header("Location:dashboard.php");
+        exit; 
+    }
     if (!empty($_GET['id'])) {
         $categorie = getCategorie($_GET['id']);
     }

@@ -4,18 +4,22 @@ include 'connexion.php';
 if (
     !empty($_POST['nom'])
     && !empty($_POST['prenom'])
+    && !empty($_POST['username'])
+    && !empty($_POST['role'])
     && !empty($_POST['telephone'])
     && !empty($_POST['email'])
     && !empty($_POST['mot_passe'])
     && !empty($_POST['id'])
 ){
-    $sql= "UPDATE utilisateur SET nom=?, prenom=?, telephone=?, email=?, mot_passe=? WHERE id=?";
+    $sql= "UPDATE utilisateur SET nom=?, prenom=?, username=?, `role`=?, telephone=?, email=?, mot_passe=? WHERE id=?";
     
     $req = $connexion->prepare($sql);
 
     $req->execute(array(
         $_POST['nom'],
         $_POST['prenom'],
+        $_POST['username'],
+        $_POST['role'],
         $_POST['telephone'],
         $_POST['email'],
         $_POST['mot_passe'],

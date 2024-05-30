@@ -1,5 +1,9 @@
 
 <?php
+if (isset($_SESSION['role']) && $_SESSION['role']!='administrateur' && $_SESSION['role']!='vendeur') {
+    header("Location:dashboard.php");
+    exit; 
+}
 	include 'entete.php';
     if (!empty($_GET['id'])) {
         $client = getClient($_GET['id']);
@@ -9,6 +13,9 @@
 
 <div class="home-content">
     <div class="overview-boxes">
+    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='vendeur') {
+            ?>
          <div class="box">
             <form action="<?= !empty($_GET['id']) ? "../model/modifClient.php" : "../model/ajoutClient.php" ?>" method="post">
             <label for="nom"> Nom </label>
@@ -40,7 +47,11 @@
 
             </form>
               
-         </div> 
+         </div>
+          <?php
+                }
+                ?>
+
 
          <div class="box">
             <table class="mtable">
@@ -50,7 +61,13 @@
                     <th>Prenom</th>
                     <th>Téléphone</th>
                     <th>Email</th>
+                    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='vendeur') {
+            ?>
                     <th>Actions</th>
+                    <?php
+                }
+                ?>
                 </tr>
                 <?php 
                 
@@ -64,9 +81,15 @@
                     <td><?= $value['prenom'] ?></td>
                     <td><?= $value['telephone'] ?></td>
                     <td><?= $value['email'] ?></td>
+                    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='vendeur') {
+            ?>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
                     </td>
+                    <?php
+                }
+                ?>
                 </tr>
                 
                 <?php

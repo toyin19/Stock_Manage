@@ -33,6 +33,9 @@ include_once '../model/function.php'
             <label for="prenom"> Prenom </label>
             <input value="<?= !empty($_GET['id']) ? $utilisateur['prenom'] : "" ?>" type="text" name="prenom" id="prenom" placeholder="veuillez entrez votre prenom "/>
 
+            <label for="prenom"> Username </label>
+            <input value="<?= !empty($_GET['id']) ? $utilisateur['username'] : "" ?>" type="text" name="username" id="username" placeholder="veuillez entrez votre username "/>
+
             <label for="telephone"> Téléphone </label>
             <input value="<?= !empty($_GET['id']) ? $utilisateur['telephone'] : "" ?>" type="text" name="telephone" id="telephone" placeholder="veuillez entrez votre numero de téléphone "/>
 

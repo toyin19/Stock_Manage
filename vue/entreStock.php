@@ -1,7 +1,11 @@
 
 <?php
 	include 'entete.php';
-   
+    
+    if (isset($_SESSION['role']) && $_SESSION['role']!='administrateur' && $_SESSION['role']!='responsable_logistique') {
+        header("Location:dashboard.php");
+        exit; 
+    }
 
     if (!empty($_GET['id'])) {
         $entreStock = getEntreStock($_GET['id']);
@@ -11,6 +15,9 @@
 
 <div class="home-content">
     <div class="overview-boxes">
+    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='responsable_logistique') {
+            ?>
          <div class="box">
             <form action="<?= !empty($_GET['id']) ? "../model/modifStock.php" : "../model/ajoutStock.php" ?>" method="post">
             <input value="<?= !empty($_GET['id']) ? $entreStock['id'] : "" ?>" type="hidden" name="id" id="id"/>
@@ -79,6 +86,9 @@
             </form>
               
          </div> 
+         <?php
+                }
+                ?>
 
          <div class="box">
             <table class="mtable">
@@ -91,7 +101,13 @@
                     <th>Prenom </th>
                     <th>Tel </th>
                     <th>Date d'entre</th>
-                    <th>Actions</th>                
+                    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='responsable_logistique') {
+                 ?>
+                    <th>Actions</th>     
+                    <?php      
+               }
+                ?>           
                 </tr>
                 <?php 
                 
@@ -109,10 +125,15 @@
                     <td><?= $value['prenom_fournisseur'] ?></td>
                     <td><?= $value['tel_fournisseur'] ?></td>
                     <td><?= date('d/m/y H:i:s', strtotime($value['date_entre'])) ?></td>
+                    <?php
+             if(isset($_SESSION['role']) and $_SESSION['role']=='responsable_logistique') {
+                 ?>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
                     </td>
-                   
+                    <?php      
+               }
+                ?> 
 
                 </tr>
                 <?php
