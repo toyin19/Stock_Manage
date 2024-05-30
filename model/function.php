@@ -193,10 +193,10 @@ function getAllVente() {
             v.date_vente 
         FROM 
             vente AS v
-            INNER JOIN client AS c ON v.id_client = c.id ";
+            INNER JOIN client AS c ON v.id_client = c.id AND v.etat= ?";
 
     $req = $GLOBALS['connexion']->prepare($sql);
-    $req->execute();
+    $req->execute(array(1));
     $ventes = $req->fetchAll(PDO::FETCH_ASSOC);
 
     if ($ventes === false) {

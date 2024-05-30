@@ -34,10 +34,10 @@ if (!empty($_GET['id'])) {
 
                  <?php 
 
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageUti']['text'])) {
                 ?>
-               <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+               <div class="alert <?= ($_SESSION['messageUti']['type']) ?>">
+                <?= ($_SESSION['messageUti']['text']) ?>
                </div>
 
                 <?php      
@@ -71,7 +71,6 @@ if (!empty($_GET['id'])) {
                     <td><?= $value['email'] ?></td>
                     <td>
                     <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
-                    <a href="../model/supUtilisateur.php?id=<?= $value['id']?>"><i class='bx bx-message-rounded-x'></i></a>
                 </td>
                 </tr>
                 

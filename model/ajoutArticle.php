@@ -20,19 +20,20 @@ if (
        
     ));
     if ($req->rowCount()!=0) {
-        $_SESSION['message']['text'] = "article ajouté avec succès";
-        $_SESSION['message']['type'] = "success";
+        $_SESSION['messageArti']['text'] = "article ajouté avec succès";
+        $_SESSION['messageArti']['type'] = "success";
         
     }else {
-        $_SESSION['message']['text'] ="une erreur s'est produite";
-        $_SESSION['message']['type'] = "danger";
+        $_SESSION['messageArti']['text'] ="une erreur s'est produite";
+        $_SESSION['messageArti']['type'] = "danger";
       
     }
 
     
 }else {
-    $_SESSION['message']['text'] ="un champ obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
-       
+    $_SESSION['messageArti']['text'] ="un champ obligatoire non renseigné";
+    $_SESSION['messageArti']['type'] = "danger";
+    
+
 }
 header('Location: ../vue/article.php');

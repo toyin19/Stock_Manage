@@ -3,7 +3,7 @@
 
 include_once '../model/connexion.php';
 
-session_start();
+
 
 //Validation du formulaire
 

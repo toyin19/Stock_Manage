@@ -36,8 +36,8 @@ if (
     }
     
 }else {
-    $_SESSION['message']['text'] ="un champ obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageUti']['text'] ="un champ obligatoire non renseigné";
+    $_SESSION['messageUti']['type'] = "danger";
        
 }
 

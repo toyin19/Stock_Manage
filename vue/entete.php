@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 include_once '../model/function.php';
 
     if (!isset($_SESSION['mail'])) {
@@ -82,13 +81,6 @@ include_once '../model/function.php';
                 </a>
             </li>
            
-            <li>
-                <a href="etatStock.php" class=" <?php
-                  echo  basename($_SERVER['PHP_SELF'])=="etatStock.php"? "active" : "" ?>">
-                    <i class="bx bx-coin-stack"></i>
-                    <span class="links_name">Etat de stock</span>
-                </a>
-            </li>
            
             <li>
                 <a href="utilisateur.php"class=" <?php

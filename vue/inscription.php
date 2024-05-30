@@ -20,7 +20,7 @@ include_once '../model/function.php'
 <body>
 
     
-<div class="home-content" style=" background-color: #808080; background-image: url('../public/images/bg-01.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover; display: flex; justify-content: center; align-items: center; height: 100vh;" >
+<div class="home-content" style=" background-color: #808080; background-repeat: no-repeat; background-position: center; background-size: cover; display: flex; justify-content: center; align-items: center; height: 100vh;" >
     <div class="overview-boxes" >
 
         <div class="box">

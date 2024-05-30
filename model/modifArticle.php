@@ -20,19 +20,19 @@ if (
     ));
   
     if ($req->rowCount()!=0) {
-        $_SESSION['message']['text'] = "article modifier avec succès";
-        $_SESSION['message']['type'] = "success";
+        $_SESSION['messageArti']['text'] = "article modifier avec succès";
+        $_SESSION['messageArti']['type'] = "success";
         
     }else {
-        $_SESSION['message']['text'] ="rien n'a été modifier";
-        $_SESSION['message']['type'] = "warning";
+        $_SESSION['messageArti']['text'] ="rien n'a été modifier";
+        $_SESSION['messageArti']['type'] = "warning";
       
     }
 
     
 }else {
-    $_SESSION['message']['text'] ="un champ  obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageArti']['text'] ="un champ  obligatoire non renseigné";
+    $_SESSION['messageArti']['type'] = "danger";
        
 }
 header('Location: ../vue/article.php');

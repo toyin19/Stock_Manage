@@ -14,8 +14,8 @@ if (
             
             if($article->quantite>$db_article['quantite']) {
                 
-            $_SESSION['message']['text'] ="La quantité à vendre n'est pas disponible";
-            $_SESSION['message']['type'] = "danger";
+            $_SESSION['messageVent']['text'] ="La quantité à vendre n'est pas disponible";
+            $_SESSION['messageVent']['type'] = "danger";
                 // $good_quantity=false;
             }
         }
@@ -31,34 +31,34 @@ if (
                     $_POST['id_client'],
                     $_POST['prix']
                 ));
-                // if ($req->rowCount()!=0) {
+                 if ($req->rowCount()!=0) {
     
-                //     $sql= "UPDATE article SET quantite= quantite-? WHERE id=?";
-                //     $req = $connexion->prepare($sql);
+                     $sql= "UPDATE article SET quantite= quantite-? WHERE id=?";
+                     $req = $connexion->prepare($sql);
                 
-                //     $req->execute(array(
-                //         $_POST['quantite'],
-                //         $_POST['id_article'],
-                //     ));
+                     $req->execute(array(
+                         $_POST['quantite'],
+                         $_POST['id_article'],
+                     ));
     
-                //     if ($req->rowCount()!=0) {
-                //     $_SESSION['message']['text'] = "vente effectuée avec succès";
-                //     $_SESSION['message']['type'] = "success";
-                //     }else {
-                //         $_SESSION['message']['text'] ="Impossible d'effectuer cette vente";
-                //         $_SESSION['message']['type'] = "danger";
+                     if ($req->rowCount()!=0) {
+                    $_SESSION['messageVent']['text'] = "vente effectuée avec succès";
+                     $_SESSION['messageVent']['type'] = "success";
+                     }else {
+                        $_SESSION['messageVent']['text'] ="Impossible d'effectuer cette vente";
+                         $_SESSION['messageVent']['type'] = "danger";
                       
-                //     }     
-                // }else {
-                //     $_SESSION['message']['text'] ="une erreur s'est produite lors de la vente";
-                //     $_SESSION['message']['type'] = "danger"; 
-                // }
+                     }     
+                 }else {
+                     $_SESSION['messageVent']['text'] ="une erreur s'est produite lors de la vente";
+                     $_SESSION['messageVent']['type'] = "danger"; 
+                 }
             
         }
     }
 else {
-    $_SESSION['message']['text'] ="un champ  obligatoire non renseigné";
-    $_SESSION['message']['type'] = "danger";
+    $_SESSION['messageVent']['text'] ="un champ  obligatoire non renseigné";
+    $_SESSION['messageVent']['type'] = "danger";
 
 }
 header('Location: ../vue/vente.php');

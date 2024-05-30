@@ -1,3 +1,13 @@
+<?php
+
+	include 'entete.php';
+
+    if (!empty($_GET['id'])) {
+        $categorie = getCategorie($_GET['id']);
+    }
+
+?>
+
 
 <div class="home-content">
     <div class="overview-boxes">
@@ -8,13 +18,13 @@
             <input value="<?= !empty($_GET['id']) ? $categorie['id'] : "" ?>" type="hidden" name="id" id="id"/>
 
              <button type="submit">Valider</button>
-
                  <?php 
 
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageCate']['text'])) {
                 ?>
-                <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+                
+                <div class="alert <?= ($_SESSION['messageCate']['type']) ?>">
+                <?= ($_SESSION['messageCate']['text']) ?>
             </div>
 
                 <?php      
@@ -43,7 +53,6 @@
                     <td><?= $value['libelle_categorie'] ?></td>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
-                        <a href="../model/supCategorie.php?= $value['id']?>"><i class='bx bx-message-rounded-x'></i></a>
                    </td>
 
                 </tr>

@@ -73,11 +73,11 @@ if (!empty($_GET['id'])) {
 
                 <?php
                 
-                if (!empty($_SESSION['message']['text'])) {
+                if (!empty($_SESSION['messageVent']['text'])) {
                 ?>
 
-                    <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                        <?= ($_SESSION['message']['text']) ?>
+                    <div class="alert <?= ($_SESSION['messageVent']['type']) ?>">
+                        <?= ($_SESSION['messageVent']['text']) ?>
                     </div>
 
                 <?php
@@ -125,7 +125,7 @@ if (!empty($_GET['id'])) {
             ?>
                     </table>
 
-
+         
         </div>
 
     </div>

@@ -1,11 +1,10 @@
-
 <?php
 
-	include 'entete.php';
+	include 'entete.php';    
     if (!empty($_GET['id'])) {
         $article = getArticle($_GET['id']);
     }
-
+    
    
 ?>
 
@@ -47,11 +46,11 @@
 
                  <?php 
                   
-                 if (!empty($_SESSION['message']['text'])) {
+                 if (!empty($_SESSION['messageArti']['text'])) {
                 ?>
 
-                <div class="alert <?= ($_SESSION['message']['type']) ?>">
-                <?= ($_SESSION['message']['text']) ?>
+                <div class="alert <?= ($_SESSION['messageArti']['type']) ?>">
+                <?= ($_SESSION['messageArti']['text']) ?>
             </div>
                
                 <?php      
@@ -139,7 +138,6 @@
                     <td><?= $value['prix_unitaire'] ?></td>
                     <td>
                         <a href="?id=<?= $value['id']?>"><i class='bx bx-edit-alt'></i></a>
-                        <a href="../model/supArticle.php?id=<?= $value['id']?>"><i class='bx bx-message-rounded-x'></i></a>
                     </td>
 
                 </tr>
