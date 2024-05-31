@@ -1,32 +1,74 @@
 /**
+ * Define price
+ */
+function annuleVente(idVente, idArticle, quantite) {
+    if (confirm("Voulez vous vraiment annuler cette vente ?")) {
+        window.location.href = "../model/annuleVente.php?idVente=" + idVente + "&idArticle=" + idArticle + "&quantite=" + quantite
+    }
+}
+function setPrix() {
+    let totalPrix = 0;
+    const products = document.querySelectorAll('.checkout-flex');
+    products.forEach(product => {
+        var article = product.querySelector('#id_article');
+        var quantite = product.querySelector('#quantite');
+        var prixElement = document.querySelector('#prix'); 
+
+        var prixUnitaire = article.options[article.selectedIndex].getAttribute('data-prix');
+
+        totalPrix += Number(quantite.value) * Number(prixUnitaire);
+
+        prixElement.setAttribute('value', totalPrix.toString());
+        console.log(totalPrix);
+
+        setQuantity(product);
+    });
+}
+
+
+function setQuantity(product) {
+    var selectElement = product.querySelector('#id_article');
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    if (selectedOption.value !== "") {
+        var quantityLimit = selectedOption.getAttribute('data-quantity');
+        var inputElement = product.querySelector('#quantite');
+        inputElement.setAttribute('max', quantityLimit);
+    } else {
+        var inputElement = product.querySelector('#quantite');
+        inputElement.removeAttribute('max');
+    }
+}
+
+/**
  * Quantity management
  */
-document.addEventListener('DOMContentLoaded',()=>{
-    const qtyDecrement=document.querySelector('#qty-decrement');
-    const qtyIncrement=document.querySelector('#qty-increment');
-    
-    qtyDecrement.addEventListener('click', decrementQuantity);
-    
-    qtyIncrement.addEventListener('click', incrementQuantity);
-    function incrementQuantity() {
-        console.log('ok')
-        let input = document.querySelector('#quantite');
-        console.log(input.value);
-        if (parseInt(input.value) < 100) {
+document.addEventListener('DOMContentLoaded', () => {
+    const products = document.querySelectorAll('.checkout-flex');
+    products.forEach(product => {
+        const qtyDecrement = product.querySelector('#qty-decrement');
+        const qtyIncrement = product.querySelector('#qty-increment');
+
+        qtyDecrement.addEventListener('click', () => decrementQuantity(product));
+        qtyIncrement.addEventListener('click', () => incrementQuantity(product));
+    });
+
+    function incrementQuantity(product) {
+        let input = product.querySelector('#quantite');
+        let max = input.getAttribute('max');
+        if (parseInt(input.value) < max) {
             input.value++;
-            setPrix();
+            setPrix(); 
         }
     }
-    
-    function decrementQuantity() {
-        let input = document.querySelector('#quantite');
+
+    function decrementQuantity(product) {
+        let input = product.querySelector('#quantite');
         if (parseInt(input.value) > 1) {
             input.value--;
             setPrix();
         }
     }
-})
-
+});
 
 /**
  * Add product
@@ -60,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newProductElement = document.createElement('div');
         newProductElement.id = 'products';
-        newProductElement.innerHTML = newProductHTML; 
+        newProductElement.innerHTML = newProductHTML;
         productsContainer.appendChild(newProductElement);
         index++;
     }
@@ -69,9 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function getArticlesOptions() {
         let optionsHTML = '';
         console.log(products)
-            products.forEach((value, key) => {
-                optionsHTML += `<option data-prix="${value.prix_unitaire}" value="${value.id}">${value.nom_article} - ${value.quantite} disponible</option>`;
-            });
+        products.forEach((value, key) => {
+            optionsHTML += `<option data-prix="${value.prix_unitaire}" data-quantity="${value.quantite}" value="${value.id}">${value.nom_article} - ${value.quantite} disponible</option>`;
+        });
         return optionsHTML;
     }
 });
@@ -79,13 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Submit form
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('#buy-form');
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         event.preventDefault();
         const produits = [];
-        const productBlock=document.querySelectorAll('.checkout-flex');
-        productBlock.forEach((product)=>{
+        const productBlock = document.querySelectorAll('.checkout-flex');
+        productBlock.forEach((product) => {
             const idArticle = product.querySelector('#id_article').value;
             const quantite = product.querySelector('#quantite').value;
             produits.push({ id: idArticle, quantite: quantite });
@@ -98,12 +140,13 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             body: formData
         })
-       .then(response => response.text())
-       .then(data => {
-            console.log('Succès:', data);
-        })
-       .catch(error => {
-            console.error('Erreur:', error);
-        });
+            .then(response => response.text())
+            .then(data => {
+                console.log('Succès:', data);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
     });
 });

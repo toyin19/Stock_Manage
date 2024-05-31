@@ -16,7 +16,10 @@ if (
                 
             $_SESSION['messageVent']['text'] ="La quantité à vendre n'est pas disponible";
             $_SESSION['messageVent']['type'] = "danger";
-                // $good_quantity=false;
+                $good_quantity=false;
+                header('Location: ../vue/vente.php');
+                exit;
+
             }
         }
         }
@@ -27,7 +30,7 @@ if (
             
                 $req->execute(array(
                     json_encode($_POST['produits']),
-                    9, 
+                    null,
                     $_POST['id_client'],
                     $_POST['prix']
                 ));

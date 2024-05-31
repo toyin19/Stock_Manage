@@ -23,7 +23,7 @@ if (!empty($_GET['id'])) {
             <form action="<?= !empty($_GET['id']) ? "../model/modifVente.php" : "../model/ajoutVente.php" ?>" id="buy-form" method="post">
                 <input value="<?= !empty($_GET['id']) ? $article['id'] : "" ?>" type="hidden" name="id" id="id" />
                 <div id="products" data-products="<?= htmlspecialchars(json_encode(getArticle())) ?>">
-                <div class="checkout-flex">
+                <div class="checkout-flex" id="product-1">
                     <div class="checkout-flex__article">
                         <label for="id_article"> Article</label>
                         <select onchange="setPrix()" name="id_article" id="id_article">
@@ -34,7 +34,7 @@ if (!empty($_GET['id'])) {
                                 foreach ($articles as $key => $value) {
 
                             ?>
-                                    <option data-prix="<?= $value['prix_unitaire'] ?>" value="<?= $value['id'] ?>"><?= $value['nom_article'] . " - " . $value['quantite'] . " disponible" ?></option>
+                                    <option data-prix="<?= $value['prix_unitaire'] ?>" data-quantity="<?= $value['quantite'] ?>" value="<?= $value['id'] ?>"><?= $value['nom_article'] . " - " . $value['quantite'] . " disponible" ?></option>
 
                             <?php
                                 }
@@ -46,7 +46,7 @@ if (!empty($_GET['id'])) {
                         <label for="quantite">Quantité</label>
                         <div class="quantity-controls">
                             <p id="qty-decrement" class="qty-btn">-</p>
-                            <input onkeyup="setPrix()" value="<?= !empty($_GET['id']) ? $article['quantite'] : 0 ?>" type="number" name="quantite" id="quantite" placeholder="Veuillez entrer la quantité" min="1" />
+                            <input onkeyup="setPrix()" value="<?= !empty($_GET['id']) ? $article['quantite'] : 0 ?>" type="number" name="quantite" id="quantite" placeholder="Veuillez entrer la quantité" min="1" max="5"/>
                             <p id="qty-increment" class="qty-btn">+</p>
                         </div>
                     </div>
@@ -158,21 +158,4 @@ if (!empty($_GET['id'])) {
 <?php
 include 'pied.php';
 ?>
-<script>
-    function annuleVente(idVente, idArticle, quantite) {
-        if (confirm("Voulez vous vraiment annuler cette vente ?")) {
-            window.location.href = "../model/annuleVente.php?idVente=" + idVente + "&idArticle=" + idArticle + "&quantite=" + quantite
-        }
-    }
-
-    function setPrix() {
-        var article = document.querySelector('#id_article');
-        var quantite = document.querySelector('#quantite');
-        var prix = document.querySelector('#prix');
-
-        var prixUnitaire = article.options[article.selectedIndex].getAttribute('data-prix');
-
-        prix.value = Number(quantite.value) * Number(prixUnitaire);
-    }
-</script>
 <script src="../js/vente.js"></script>
